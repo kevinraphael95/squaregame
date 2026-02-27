@@ -505,3 +505,124 @@ body {
 }
 
 #btn-close-craft:hover { background: #d55; }
+
+/* ═══ MULTIPLAYER SCREEN ═══ */
+.btn-multiplayer {
+  padding: 12px 28px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.7rem;
+  background: #1a5a8a;
+  color: #fff;
+  border: 3px solid #0a3a6a;
+  box-shadow: 0 4px 0 #051e38;
+  cursor: pointer;
+  min-width: 200px;
+  transition: transform 0.1s;
+}
+.btn-multiplayer:hover { background: #2a6aa0; transform: translateY(-2px); }
+.btn-multiplayer:active { transform: translateY(2px); box-shadow: none; }
+
+.btn-link {
+  background: none;
+  border: none;
+  color: #aaa;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.45rem;
+  cursor: pointer;
+  text-decoration: underline;
+  margin-top: 4px;
+}
+.btn-link:hover { color: #fff; }
+
+.btn-small {
+  font-size: 0.5rem;
+  padding: 6px 12px;
+  min-width: unset;
+}
+
+.multi-form {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  max-width: 340px;
+}
+
+.multi-form label {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.45rem;
+  color: #aaa;
+  text-align: left;
+}
+
+.multi-form input {
+  font-family: monospace;
+  font-size: 0.75rem;
+  padding: 8px 10px;
+  background: #1a1a1a;
+  border: 2px solid #555;
+  color: #fff;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.multi-form input:focus { border-color: #4fc3f7; }
+
+.multi-hint {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.38rem;
+  color: #888;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid #333;
+  padding: 8px;
+  line-height: 1.8;
+  text-align: left;
+}
+
+.multi-hint strong { color: #4fc3f7; }
+
+.multi-status {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.5rem;
+  padding: 8px 14px;
+  border: 2px solid #555;
+  color: #aaa;
+  background: rgba(0,0,0,0.4);
+  text-align: center;
+}
+
+.multi-setup-steps {
+  background: rgba(0,0,0,0.5);
+  border: 2px solid #444;
+  padding: 12px;
+  max-width: 340px;
+  text-align: left;
+}
+
+.multi-setup-steps p {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.45rem;
+  color: #4fc3f7;
+  margin-bottom: 8px;
+}
+
+.multi-setup-steps ol {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.4rem;
+  color: #ccc;
+  padding-left: 20px;
+  line-height: 2.2;
+}
+
+/* Override - inventory screen starts hidden */
+#inventory-screen {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  pointer-events: all;
+}
+#inventory-screen.open { display: flex; }
