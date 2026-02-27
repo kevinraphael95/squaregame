@@ -184,10 +184,14 @@ body {
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,0.7);
-  display: flex !important;
+  display: none;
   align-items: center;
   justify-content: center;
   pointer-events: all;
+}
+
+#inventory-screen.open {
+  display: flex;
 }
 
 #inventory-panel {
