@@ -6,7 +6,7 @@ class Player {
     this.w = TILE * 0.8;
     this.h = TILE * 1.8;
     // Spawn above surface
-    const sx = Math.floor(WORLD_W / 2);
+    const sx = 0;
     const sy = world.getSurface(sx) - 3;
     this.x = sx * TILE;
     this.y = sy * TILE;
@@ -90,9 +90,6 @@ class Player {
     this.y += this.vy;
     this._resolveY();
 
-    // World bounds
-    if (this.x < 0) this.x = 0;
-    if (this.x > (WORLD_W - 1) * TILE) this.x = (WORLD_W - 1) * TILE;
 
     // Fall damage (simplified)
     if (this.onGround && this.vy > 14) {

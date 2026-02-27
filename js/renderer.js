@@ -63,16 +63,13 @@ class Renderer {
     const targetX = player.cx - this.vw / (2 * this.scale);
     const targetY = player.cy - this.vh / (2 * this.scale);
 
-    // Clamp
-    const maxX = WORLD_W * TILE - this.vw / this.scale;
+    // X is infinite; only clamp Y
     const maxY = WORLD_H * TILE - this.vh / this.scale;
+    const clampedY = Math.max(0, Math.min(maxY, targetY));
 
-    this.camX = Math.max(0, Math.min(maxX, targetX));
-    this.camY = Math.max(0, Math.min(maxY, targetY));
-
-    // Smooth
+    // Smooth camera
     this.camX += (targetX - this.camX) * 0.15;
-    this.camY += (targetY - this.camY) * 0.15;
+    this.camY += (clampedY - this.camY) * 0.15;
   }
 
   render(world, player, mouseWorld) {
@@ -85,8 +82,8 @@ class Renderer {
     this._drawSky(ctx);
 
     // Tiles
-    const startX = Math.max(0, Math.floor(this.camX / TILE));
-    const endX   = Math.min(WORLD_W - 1, Math.ceil((this.camX + this.vw / this.scale) / TILE));
+    const startX = Math.floor(this.camX / TILE);
+    const endX   = Math.ceil((this.camX + this.vw / this.scale) / TILE);
     const startY = Math.max(0, Math.floor(this.camY / TILE));
     const endY   = Math.min(WORLD_H - 1, Math.ceil((this.camY + this.vh / this.scale) / TILE));
 

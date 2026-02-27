@@ -268,3 +268,104 @@ function getBlockIcon(id, size = 36) {
   drawBlock(c.getContext('2d'), id, 0, 0, size);
   return c;
 }
+
+// ---- Additional block data for new items ----
+Object.assign(BLOCK_DATA, {
+  [B.STICK]:       { name: 'Bâton',         transparent: true,  solid: false, hardness: 0 },
+  [B.COAL_ITEM]:   { name: 'Charbon',        transparent: true,  solid: false, hardness: 0 },
+  [B.IRON_INGOT]:  { name: 'Lingot de fer',  transparent: true,  solid: false, hardness: 0 },
+  [B.GOLD_INGOT]:  { name: 'Lingot d\'or',   transparent: true,  solid: false, hardness: 0 },
+  [B.DIAMOND_GEM]: { name: 'Diamant',        transparent: true,  solid: false, hardness: 0 },
+  [B.WOOD_PICK]:   { name: 'Pioche en bois', transparent: true,  solid: false, hardness: 0 },
+  [B.STONE_PICK]:  { name: 'Pioche pierre',  transparent: true,  solid: false, hardness: 0 },
+  [B.IRON_PICK]:   { name: 'Pioche en fer',  transparent: true,  solid: false, hardness: 0 },
+  [B.WOOD_AXE]:    { name: 'Hache en bois',  transparent: true,  solid: false, hardness: 0 },
+  [B.STONE_AXE]:   { name: 'Hache pierre',   transparent: true,  solid: false, hardness: 0 },
+  [B.IRON_AXE]:    { name: 'Hache en fer',   transparent: true,  solid: false, hardness: 0 },
+  [B.WOOD_SWORD]:  { name: 'Épée en bois',   transparent: true,  solid: false, hardness: 0 },
+  [B.STONE_SWORD]: { name: 'Épée pierre',    transparent: true,  solid: false, hardness: 0 },
+  [B.IRON_SWORD]:  { name: 'Épée en fer',    transparent: true,  solid: false, hardness: 0 },
+});
+
+// Add drawBlock cases for new items
+const _origDrawBlock = drawBlock;
+function drawBlock(ctx, id, x, y, size) {
+  const s = size || TILE;
+  switch(id) {
+    case B.STICK:       drawStick(ctx, x, y, s); break;
+    case B.IRON_INGOT:  drawIngot(ctx, x, y, s, '#c8a878'); break;
+    case B.GOLD_INGOT:  drawIngot(ctx, x, y, s, '#ffd700'); break;
+    case B.DIAMOND_GEM: drawGem(ctx, x, y, s, '#00e5ff'); break;
+    case B.COAL_ITEM:   drawGem(ctx, x, y, s, '#111'); break;
+    case B.WOOD_PICK:   drawTool(ctx, x, y, s, '#ab7d3c', 'pick'); break;
+    case B.STONE_PICK:  drawTool(ctx, x, y, s, '#888', 'pick'); break;
+    case B.IRON_PICK:   drawTool(ctx, x, y, s, '#c8a878', 'pick'); break;
+    case B.WOOD_AXE:    drawTool(ctx, x, y, s, '#ab7d3c', 'axe'); break;
+    case B.STONE_AXE:   drawTool(ctx, x, y, s, '#888', 'axe'); break;
+    case B.IRON_AXE:    drawTool(ctx, x, y, s, '#c8a878', 'axe'); break;
+    case B.WOOD_SWORD:  drawTool(ctx, x, y, s, '#ab7d3c', 'sword'); break;
+    case B.STONE_SWORD: drawTool(ctx, x, y, s, '#888', 'sword'); break;
+    case B.IRON_SWORD:  drawTool(ctx, x, y, s, '#c8a878', 'sword'); break;
+    default: _origDrawBlock(ctx, id, x, y, size);
+  }
+}
+
+function drawStick(ctx, x, y, s) {
+  ctx.save(); ctx.translate(x, y);
+  ctx.fillStyle = '#6B4226';
+  ctx.fillRect(s*0.45, s*0.05, s*0.1, s*0.9);
+  ctx.restore();
+}
+
+function drawIngot(ctx, x, y, s, color) {
+  ctx.save(); ctx.translate(x, y);
+  ctx.fillStyle = color;
+  ctx.fillRect(s*0.1, s*0.3, s*0.8, s*0.4);
+  ctx.strokeStyle = '#0007';
+  ctx.lineWidth = 1;
+  ctx.strokeRect(s*0.1, s*0.3, s*0.8, s*0.4);
+  ctx.restore();
+}
+
+function drawGem(ctx, x, y, s, color) {
+  ctx.save(); ctx.translate(x, y);
+  ctx.fillStyle = color;
+  ctx.beginPath();
+  ctx.moveTo(s*0.5, s*0.1);
+  ctx.lineTo(s*0.85, s*0.4);
+  ctx.lineTo(s*0.65, s*0.9);
+  ctx.lineTo(s*0.35, s*0.9);
+  ctx.lineTo(s*0.15, s*0.4);
+  ctx.closePath();
+  ctx.fill();
+  ctx.strokeStyle = '#0005'; ctx.lineWidth = 1; ctx.stroke();
+  ctx.restore();
+}
+
+function drawTool(ctx, x, y, s, color, type) {
+  ctx.save(); ctx.translate(x, y);
+  // Handle
+  ctx.strokeStyle = '#6B4226'; ctx.lineWidth = s*0.1;
+  ctx.beginPath();
+  ctx.moveTo(s*0.75, s*0.25); ctx.lineTo(s*0.25, s*0.75);
+  ctx.stroke();
+  // Head
+  ctx.fillStyle = color;
+  ctx.strokeStyle = '#0005'; ctx.lineWidth = 1;
+  if (type === 'pick') {
+    ctx.beginPath();
+    ctx.moveTo(s*0.2, s*0.15); ctx.lineTo(s*0.8, s*0.15);
+    ctx.lineTo(s*0.65, s*0.35); ctx.lineTo(s*0.5, s*0.28);
+    ctx.lineTo(s*0.35, s*0.35); ctx.closePath();
+    ctx.fill(); ctx.stroke();
+  } else if (type === 'axe') {
+    ctx.fillRect(s*0.45, s*0.1, s*0.4, s*0.35);
+    ctx.stroke();
+  } else if (type === 'sword') {
+    ctx.fillRect(s*0.43, s*0.1, s*0.14, s*0.55);
+    // Guard
+    ctx.fillRect(s*0.28, s*0.55, s*0.44, s*0.1);
+    ctx.stroke();
+  }
+  ctx.restore();
+}
