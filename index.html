@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minecraft 2D</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="ui-overlay">
+    <div id="screen-main-menu" class="screen active">
+      <div class="menu-bg"></div>
+      <div class="menu-content">
+        <h1 class="game-title">⛏ MINECRAFT 2D</h1>
+        <p class="subtitle">Un clone 2D pixel-art</p>
+        <button class="btn-primary" id="btn-play">▶ Jouer</button>
+        <button class="btn-secondary" id="btn-controls">Contrôles</button>
+        <div id="controls-panel" class="hidden">
+          <div class="controls-grid">
+            <span>WASD / Flèches</span><span>Déplacer</span>
+            <span>Espace</span><span>Sauter</span>
+            <span>Clic Gauche</span><span>Miner</span>
+            <span>Clic Droit</span><span>Placer</span>
+            <span>1-9</span><span>Hotbar</span>
+            <span>E</span><span>Inventaire</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="screen-game" class="screen">
+      <canvas id="game-canvas"></canvas>
+      <div id="hud">
+        <div id="hotbar"></div>
+        <div id="health-bar">
+          <span id="health-display">❤ 20/20</span>
+        </div>
+      </div>
+      <div id="inventory-screen" class="hidden">
+        <div id="inventory-panel">
+          <h3>Inventaire</h3>
+          <div id="inventory-grid"></div>
+          <button id="btn-close-inv">✕ Fermer</button>
+        </div>
+      </div>
+      <div id="tooltip"></div>
+    </div>
+  </div>
+
+  <script src="js/constants.js"></script>
+  <script src="js/blocks.js"></script>
+  <script src="js/world.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/renderer.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>
