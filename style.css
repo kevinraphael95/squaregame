@@ -290,60 +290,83 @@ body {
   pointer-events: none;
 }
 
+
 /* ---- CRAFTING ---- */
 #crafting-screen {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.75);
+  background: rgba(0,0,0,0.8);
   display: none;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   pointer-events: all;
   z-index: 50;
   overflow-y: auto;
-  padding: 20px;
+  padding: 16px;
+  box-sizing: border-box;
 }
 
 #crafting-screen.open { display: flex; }
 
 #crafting-panel {
-  background: #c6c6c6;
-  border: 4px solid #555;
-  padding: 16px;
+  background: #8b8b8b;
+  border: 4px solid #373737;
+  box-shadow: inset 0 0 0 2px #fff3, 4px 4px 0 #000;
+  padding: 14px;
+  width: 100%;
+  max-width: 580px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  max-width: 560px;
-  width: 100%;
-  max-height: 90vh;
-  overflow-y: auto;
+  gap: 8px;
+  margin: auto;
 }
 
-#crafting-panel h3 {
+.craft-header {
   font-family: 'Press Start 2P', monospace;
   font-size: 0.75rem;
-  color: #333;
+  color: #fff;
+  text-shadow: 2px 2px 0 #000;
   text-align: center;
+  padding-bottom: 6px;
+  border-bottom: 2px solid #555;
 }
 
-.craft-layout {
+.craft-section-title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.45rem;
+  color: #222;
+  margin-bottom: 4px;
+}
+
+.craft-main {
   display: flex;
   align-items: center;
+  gap: 10px;
   justify-content: center;
-  gap: 12px;
+}
+
+.craft-left, .craft-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #craft-grid {
   display: grid;
-  grid-template-columns: repeat(3, 44px);
-  gap: 2px;
+  grid-template-columns: repeat(3, 46px);
+  grid-template-rows: repeat(3, 46px);
+  gap: 3px;
+  background: #373737;
+  padding: 3px;
+  border: 2px solid #222;
 }
 
 .craft-slot {
-  width: 44px;
-  height: 44px;
-  border: 2px inset #555;
+  width: 46px;
+  height: 46px;
   background: #8b8b8b;
+  border: 2px solid #373737;
+  box-shadow: inset -2px -2px 0 #fff3, inset 2px 2px 0 #0003;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -352,44 +375,83 @@ body {
 }
 
 .craft-slot:hover { background: #9d9d9d; }
-.craft-slot.craftable { background: #6b8b3b; border-color: #4a6b2a; }
-.craft-slot canvas { image-rendering: pixelated; }
 
-.craft-arrow {
-  font-size: 1.5rem;
-  color: #444;
+.craft-slot canvas {
+  image-rendering: pixelated;
+  display: block;
 }
 
-.craft-result-wrap {
+.result-slot {
+  width: 56px;
+  height: 56px;
+  background: #6b6b6b;
+  border: 3px solid #222;
+}
+
+.result-slot.craftable {
+  background: #5a7a3a;
+  border-color: #3a5a1a;
+  animation: craft-pulse 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes craft-pulse {
+  from { box-shadow: 0 0 6px #8bc34a88; }
+  to   { box-shadow: 0 0 16px #8bc34aee; }
+}
+
+#craft-result-name {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.38rem;
+  color: #fff;
+  text-align: center;
+  margin-top: 4px;
+  max-width: 80px;
+  word-break: break-word;
+}
+
+.craft-middle {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 6px;
 }
 
-#btn-craft-all {
+.craft-arrow-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.craft-arrow {
+  font-size: 1.8rem;
+  color: #fff;
+  text-shadow: 2px 2px 0 #000;
+}
+
+.btn-craft-action {
   font-family: 'Press Start 2P', monospace;
-  font-size: 0.4rem;
-  padding: 5px 8px;
+  font-size: 0.42rem;
+  padding: 6px 10px;
   background: #4c7a2d;
   color: #fff;
   border: 2px solid #2a5010;
+  box-shadow: 2px 2px 0 #000;
   cursor: pointer;
+  width: 60px;
 }
 
-.craft-recipes-title, .craft-inv-title {
-  font-family: 'Press Start 2P', monospace;
-  font-size: 0.5rem;
-  color: #444;
-  border-top: 2px solid #999;
-  padding-top: 6px;
-}
+.btn-craft-action:hover { background: #5d9436; }
+.btn-craft-action:active { transform: translate(2px,2px); box-shadow: none; }
 
 #craft-recipe-list {
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
-  max-height: 120px;
+  background: #6b6b6b;
+  padding: 6px;
+  border: 2px solid #373737;
+  max-height: 100px;
   overflow-y: auto;
 }
 
@@ -397,37 +459,49 @@ body {
   display: flex;
   align-items: center;
   gap: 4px;
-  background: #b0b0b0;
-  border: 2px solid #888;
+  background: #8b8b8b;
+  border: 2px solid #555;
   padding: 3px 6px;
   cursor: pointer;
   font-family: 'Press Start 2P', monospace;
   font-size: 0.38rem;
-  color: #333;
+  color: #fff;
+  text-shadow: 1px 1px 0 #000;
 }
 
-.recipe-item:hover { background: #c0c0c0; }
+.recipe-item:hover { background: #9d9d9d; border-color: #fff; }
 .recipe-item canvas { image-rendering: pixelated; }
 
 #craft-inv-grid {
   display: grid;
   grid-template-columns: repeat(9, 36px);
   gap: 2px;
+  background: #373737;
+  padding: 3px;
+  border: 2px solid #222;
 }
 
 .craft-inv-slot {
   width: 36px !important;
   height: 36px !important;
   cursor: pointer;
+  background: #8b8b8b;
+  border: 2px solid #555;
 }
 
+.craft-inv-slot:hover { background: #9d9d9d; }
+
 #btn-close-craft {
-  align-self: flex-end;
+  align-self: center;
   font-family: 'Press Start 2P', monospace;
   font-size: 0.55rem;
-  padding: 7px 14px;
+  padding: 8px 18px;
   background: #c44;
   color: #fff;
   border: 3px solid #822;
+  box-shadow: 2px 2px 0 #000;
   cursor: pointer;
+  margin-top: 4px;
 }
+
+#btn-close-craft:hover { background: #d55; }
